@@ -353,7 +353,10 @@ function M:step(opts)
     Prompt.set(self.pattern())
   end
   local actions = opts.actions or self.opts.actions or {}
-  local c = self:get_char()
+  local c = Util.CR
+  if #self.results > 1 then
+    c = self:get_char()
+  end
   if c == nil then
     vim.api.nvim_input("<esc>")
     if opts.restore ~= false then

@@ -237,7 +237,10 @@ function M.jump(key)
   local jump = parsed.jump
 
   M.jump_labels = Config.get("char").jump_labels
-  jump()
+  local has_match = jump()
+  if not has_match then
+    Util.exit()
+  end
   M.state:update({ force = true })
 
   if M.jump_labels then
@@ -268,13 +271,13 @@ function M.left()
 end
 
 function M.next()
-  M.state:jump({
+  local match = M.state:jump({
     count = vim.v.count1,
     forward = M.state.opts.search.forward,
     current = M.current,
   })
   M.current = false
-  return true
+  return match ~= nil
 end
 
 function M.prev()
