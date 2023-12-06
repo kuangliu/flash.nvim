@@ -61,7 +61,7 @@ end
 function M.set(pattern)
   M.show()
   local text = vim.deepcopy(Config.prompt.prefix)
-  text[#text + 1] = { pattern }
+  -- text[#text + 1] = { pattern }
 
   local str = ""
   for _, item in ipairs(text) do
